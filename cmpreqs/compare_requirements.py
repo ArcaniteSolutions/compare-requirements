@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import subprocess
 from io import StringIO
+import sys
 
 def seperate_version_from_name(line):
     if "==" in line:
@@ -9,6 +10,10 @@ def seperate_version_from_name(line):
         return line.split('>=')
     elif ">" in line:
         return line.split('>')
+    elif "<" in line:
+        l = line.split('<')
+        l[1] = "<{}".format(l[1])
+        return l
     else:
         return [line]
 
