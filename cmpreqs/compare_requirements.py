@@ -31,7 +31,10 @@ def get_version(line):
 
 def get_package_name(line):
     if 'git+' in line or 'hg+' in line:
-        return line.split('#egg=')[1]
+        if '#egg=' in line:
+            return line.split('#egg=')[1]
+        else:
+            return line.split('/')[-1].split('.git')[0]
     else:
         return seperate_version_from_name(line)[0].lower()
 
